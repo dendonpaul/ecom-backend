@@ -1,0 +1,26 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "ecom backend with node, express, mongoose",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dendonpaul/ecom-backend.git"
+  },
+  "keywords": [
+    "ecom",
+    "backend",
+    "node",
+    "mongoodb",
+    "express"
+  ],
+  "author": "Denny Paul",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dendonpaul/ecom-backend/issues"
+  },
+  "homepage": "https://github.com/dendonpaul/ecom-backend#readme"
+}
