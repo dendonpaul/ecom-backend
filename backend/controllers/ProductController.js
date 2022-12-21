@@ -13,10 +13,14 @@ const addProduct = async (req, res) => {
     res.status(400).json({ message: "Error. Product not added. Try again" });
   }
 };
+
 //Get a product detail
-const getProduct = (req, res) => {
-  res.send("Get Product Details");
+const getProduct = async (req, res) => {
+  const { id } = req.params;
+  const product = await ProductModel.findById(id);
+  res.status(200).json(product);
 };
+
 //Edit Product
 const editProduct = (req, res) => {
   res.send("Edit Product");
