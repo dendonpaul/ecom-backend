@@ -1,3 +1,4 @@
+const e = require("express");
 const ProductModel = require("../models/ProductModel");
 
 //Add New Product
@@ -6,7 +7,9 @@ const addProduct = async (req, res) => {
   try {
     const product = new ProductModel(req.body);
     await product.save().then((data) => {
-      res.status(200).json({ message: "Product Added Successfully" });
+      res
+        .status(200)
+        .json({ message: "Product Added Successfully", data: data });
     });
   } catch (error) {
     console.log(error);
@@ -39,8 +42,15 @@ const editProduct = async (req, res) => {
   }
 };
 //Delete Product
-const deleteProduct = (req, res) => {
-  res.send("Delete Product");
+const deleteProduct = async (req, res) => {
+  const { id } = req.params;
+  try {
+    ProductModel.deleteOne({ _id: id }).then((data) => {
+      res.status(200).json({ message: "Product Deleted", data: data });
+    });
+  } catch (error) {
+    res.status(400).json({ message: "Product not deleted" });
+  }
 };
 
 module.exports = { addProduct, getProduct, editProduct, deleteProduct };
