@@ -22,8 +22,21 @@ const getProduct = async (req, res) => {
 };
 
 //Edit Product
-const editProduct = (req, res) => {
-  res.send("Edit Product");
+const editProduct = async (req, res) => {
+  const { id } = req.params;
+  const { name, price, category, description, imageUrl, quantity } = req.body;
+
+  try {
+    await ProductModel.findByIdAndUpdate(
+      id,
+      { name, price, category, description, imageUrl, quantity },
+      { runValidators: true }
+    ).then((data) => {
+      res.status(200).json({ message: "Product Updated", data: data });
+    });
+  } catch (error) {
+    res.status(401).json(error);
+  }
 };
 //Delete Product
 const deleteProduct = (req, res) => {
