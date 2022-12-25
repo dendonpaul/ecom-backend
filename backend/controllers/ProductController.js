@@ -1,4 +1,3 @@
-const e = require("express");
 const ProductModel = require("../models/ProductModel");
 
 //Add New Product
