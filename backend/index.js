@@ -8,6 +8,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const ProductRouter = require("./routes/ProductRouter");
+const UserRouter = require("./routes/UserRouter");
 
 Connection();
 
@@ -18,6 +19,6 @@ app.get("/", (req, res) => {
 app.use("/api/product", ProductRouter);
 
 //User Router
-app.use("/user");
+app.use("/user", UserRouter);
 
 app.listen(5001, () => console.log("Server running on 5001"));
