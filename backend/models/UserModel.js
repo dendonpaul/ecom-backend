@@ -15,7 +15,7 @@ const UserSchema = new mongoose.Schema(
       trim: true,
       unique: true,
       validate(value) {
-        if (!this.validate.isEmail(value)) {
+        if (!validator.isEmail(value)) {
           throw new Error("Invalid Email");
         }
       },
@@ -25,14 +25,14 @@ const UserSchema = new mongoose.Schema(
       required: true,
       minLength: 7,
       validate(value) {
-        if (validator.includes("password")) {
+        if (value.includes("password")) {
           throw new Error("Password should not contain password");
         }
       },
     },
     tokens: [
       {
-        tokens: {
+        token: {
           type: String,
           required: true,
         },
