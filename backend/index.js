@@ -17,4 +17,7 @@ app.get("/", (req, res) => {
 //Product Router
 app.use("/api/product", ProductRouter);
 
+//User Router
+app.use("/user");
+
 app.listen(5001, () => console.log("Server running on 5001"));
