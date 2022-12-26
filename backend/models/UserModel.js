@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
+const jwt = require("jsonwebtoken");
 
 const UserSchema = new mongoose.Schema(
   {
@@ -31,7 +32,7 @@ const UserSchema = new mongoose.Schema(
     },
     tokens: [
       {
-        token: {
+        tokens: {
           type: String,
           required: true,
         },
@@ -42,6 +43,15 @@ const UserSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+//Auth Token Generator
+UserSchema.methods.generateAuthToken = async function () {
+  const user = this;
+  const token = jwt.sign({ _id: user._id.toString() }, process.env.SECRET_KEY);
+  user.tokens = user.tokens.concat({ token });
+  await user.save();
+  return token;
+};
 
 const UserModel = mongoose.model("user", UserSchema);
 
