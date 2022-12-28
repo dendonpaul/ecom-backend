@@ -6,6 +6,7 @@ const {
   deleteUser,
   getDetails,
   getAllUsers,
+  logoutUser,
   loginUser,
 } = require("../controllers/UserController");
 
@@ -15,5 +16,6 @@ router.post("/create", createUser);
 // router.get("/details", getDetails);
 // router.get("/allUsers", getAllUsers);
 router.post("/login", loginUser);
+router.post("logout", logoutUser);
 
 module.exports = router;

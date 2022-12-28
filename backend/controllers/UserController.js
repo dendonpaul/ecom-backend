@@ -35,8 +35,13 @@ const loginUser = async (req, res) => {
   if (!passMatch)
     return res.status(401).json({ message: "Invalid credentials" });
 
+  //Generate token for session
+  const token = await user.generateAuthToken();
   //return user if credentials match
   return res.status(200).json({ message: "Credentials Validated", user });
 };
+
+//Logout user
+const logoutUser = async (req, res) => {};
 
 module.exports = { createUser, loginUser };
