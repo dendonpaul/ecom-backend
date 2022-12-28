@@ -42,6 +42,20 @@ const loginUser = async (req, res) => {
 };
 
 //Logout user
-const logoutUser = async (req, res) => {};
+const logoutUser = async (req, res) => {
+  try {
+    console.log(req);
+    req.user.tokens = req.user.token.filter((token) => {
+      return token.token !== req.token;
+    });
 
-module.exports = { createUser, loginUser };
+    await req.user.save();
+
+    res.status(200).json({ message: "User Logged out" });
+  } catch (error) {
+    console.log(error);
+    // res.status(400).json({ message: "Logout failed" });
+  }
+};
+
+module.exports = { createUser, loginUser, logoutUser };

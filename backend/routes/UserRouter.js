@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const UserModel = require("../models/UserModel");
+const Auth = require("../middleware/Auth");
 const {
   createUser,
   editUser,
@@ -16,6 +17,6 @@ router.post("/create", createUser);
 // router.get("/details", getDetails);
 // router.get("/allUsers", getAllUsers);
 router.post("/login", loginUser);
-router.post("logout", logoutUser);
+router.post("/logout", Auth, logoutUser);
 
 module.exports = router;
