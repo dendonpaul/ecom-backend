@@ -9,6 +9,7 @@ const {
   getAllUsers,
   logoutUser,
   loginUser,
+  logoutAll,
 } = require("../controllers/UserController");
 
 router.post("/create", createUser);
@@ -18,5 +19,6 @@ router.post("/create", createUser);
 // router.get("/allUsers", getAllUsers);
 router.post("/login", loginUser);
 router.post("/logout", Auth, logoutUser);
+router.post("/logoutall", Auth, logoutAll);
 
 module.exports = router;
