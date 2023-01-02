@@ -4,7 +4,7 @@ const ProductModel = require("../models/ProductModel");
 const addProduct = async (req, res) => {
   const { name, price, category, description, imageUrl, quantity } = req.body;
   try {
-    const product = new ProductModel(req.body);
+    const product = new ProductModel({ ...req.body, owner: req.user._id });
     await product.save().then((data) => {
       res
         .status(200)
