@@ -52,4 +52,16 @@ const deleteProduct = async (req, res) => {
   }
 };
 
-module.exports = { addProduct, getProduct, editProduct, deleteProduct };
+//get all products
+const getAllProducts = async (req, res) => {
+  const products = await ProductModel.find({});
+  res.status(200).json({ message: "All Products fetched", products });
+};
+
+module.exports = {
+  addProduct,
+  getProduct,
+  editProduct,
+  deleteProduct,
+  getAllProducts,
+};
