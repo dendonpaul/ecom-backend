@@ -9,6 +9,7 @@ dotenv.config();
 
 const ProductRouter = require("./routes/ProductRouter");
 const UserRouter = require("./routes/UserRouter");
+const CartRouter = require("./routes/CartRouter");
 
 Connection();
 
@@ -20,5 +21,8 @@ app.use("/api/product", ProductRouter);
 
 //User Router
 app.use("/user", UserRouter);
+
+//Cart Router
+app.use("/api/cart", CartRouter);
 
 app.listen(5001, () => console.log("Server running on 5001"));
