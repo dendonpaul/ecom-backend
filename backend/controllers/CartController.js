@@ -62,6 +62,25 @@ const createCart = async (req, res) => {
 };
 
 //Delete Cart
-const deleteCart = async (req, res) => {};
+const deleteCart = async (req, res) => {
+  const customer = req.user._id;
+  const productId = req.query.productId;
+
+  const cart = await CartModel.findOne({ customer });
+  const productIndex = cart.products.findIndex(
+    (item) => item.productId == productId
+  );
+
+  if (productIndex > -1) {
+    cart.products.splice(productIndex, 1);
+    cart.bill = cart.products.reduce(acc, (cur) => {
+      return acc + cur.quantity * cur.price;
+    });
+    await cart.save();
+    res.status(200).json({ message: "Product removed from cart" });
+  } else {
+    res.status(400).json({ message: "Product Not Found!" });
+  }
+};
 
 module.exports = { getCart, createCart, deleteCart };
