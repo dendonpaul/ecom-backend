@@ -24,20 +24,30 @@ const createCart = async (req, res) => {
   const { productId, price, quantity, name } = req.body;
   //check if product is valid
   const isProduct = await ProductModel.findOne({ _id: productId });
-
   if (!isProduct) res.status(401).json({ message: "Sorry, invalid Product!" });
+
   //check if user already has a cart
   const cart = await CartModel.findOne({ customer });
-
   if (!cart) {
     const newCart = new CartModel({
       customer,
       products: [{ productId, quantity, price, name }],
       bill: price * quantity,
     });
-
     await newCart.save();
-    res.status(200).json({ message: "Cart Created. Product Added to cart" });
+    return res
+      .status(200)
+      .json({ message: "Cart Created. Product Added to cart" });
+  } else {
+    //check if product already available in cart
+    const productIndex = cart.products.findIndex((item) => {
+      return item.productId == productId;
+    });
+
+    //add quantity if product available in cart
+    if (productIndex > -1) {
+      let;
+    }
   }
 
   // if (cart) {
