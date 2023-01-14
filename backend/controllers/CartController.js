@@ -55,6 +55,13 @@ const createCart = async (req, res) => {
       //save cart
       await cart.save();
       res.status(200).json({ message: "Quantity and Bill Updated" });
+    } else {
+      cart.products.push({ productId, quantity, price, name });
+      cart.bill = cart.products.reduce((acc, curr) => {
+        return acc + curr.quantity * curr.price;
+      }, 0);
+      await cart.save();
+      res.status(200).json({ message: "Product Added to cart." });
     }
   }
 
