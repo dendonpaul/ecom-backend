@@ -46,7 +46,15 @@ const createCart = async (req, res) => {
 
     //add quantity if product available in cart
     if (productIndex > -1) {
-      let;
+      //increase quantity
+      cart.products[productIndex].quantity += quantity;
+      //increase bill
+      cart.bill = cart.products.reduce((acc, cur) => {
+        return acc + cur.quantity * cur.price;
+      }, 0);
+      //save cart
+      await cart.save();
+      res.status(200).json({ message: "Quantity and Bill Updated" });
     }
   }
 
