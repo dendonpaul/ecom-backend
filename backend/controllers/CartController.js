@@ -64,58 +64,26 @@ const createCart = async (req, res) => {
       res.status(200).json({ message: "Product Added to cart." });
     }
   }
-
-  // if (cart) {
-  //   //check if the product is already in cart
-  //   const productIndex = cart.products.findIndex((product) => {
-  //     return product.productId == productId;
-  //   });
-  //   //increase product quantity if product already in cart else add the product to the available cart.
-  //   if (productIndex > -1) {
-  //     cart.products[productIndex].quantity += quantity;
-  //     cart.bill = cart.products.reduce((acc, cur) => {
-  //       return acc + cur.quantity * cur.price;
-  //     });
-  //     await cart.save();
-  //     res.status(200).json({ message: "Cart Updated" });
-  //   } else {
-  //     cart.products.push({ productId, quantity, name, price });
-  //     cart.bill = cart.products.reduce((acc, cur) => {
-  //       return acc + cur.quantity * cur.price;
-  //     });
-  //     await cart.save();
-  //     res.status(200).json({ message: "Product Added to Cart" });
-  //   }
-  // }
-  // //if no cart available create new cart
-  // else {
-  //   const newCart = await CartModel.create({
-  //     customer,
-  //     products: [{ productId, price, quantity, name }],
-  //     bill: quantity * price,
-  //   });
-  //   return res.status(200).json({ message: "Product Added to cart" });
-  // }
 };
 
 //Delete Cart
 const deleteCart = async (req, res) => {
-  // const customer = req.user._id;
-  // const productId = req.query.productId;
-  // const cart = await CartModel.findOne({ customer });
-  // const productIndex = cart.products.findIndex(
-  //   (item) => item.productId == productId
-  // );
-  // if (productIndex > -1) {
-  //   cart.products.splice(productIndex, 1);
-  //   cart.bill = cart.products.reduce(acc, (cur) => {
-  //     return acc + cur.quantity * cur.price;
-  //   });
-  //   await cart.save();
-  //   res.status(200).json({ message: "Product removed from cart" });
-  // } else {
-  //   res.status(400).json({ message: "Product Not Found!" });
-  // }
+  const customer = req.user._id;
+  const productId = req.query.productId;
+  const cart = await CartModel.findOne({ customer });
+  const productIndex = cart.products.findIndex(
+    (item) => item.productId == productId
+  );
+  if (productIndex > -1) {
+    cart.products.splice(productIndex, 1);
+    cart.bill = cart.products.reduce((acc, cur) => {
+      return acc + cur.quantity * cur.price;
+    }, 0);
+    await cart.save();
+    res.status(200).json({ message: "Product removed from cart" });
+  } else {
+    res.status(400).json({ message: "Product Not Found!" });
+  }
 };
 
 module.exports = { getCart, createCart, deleteCart };
